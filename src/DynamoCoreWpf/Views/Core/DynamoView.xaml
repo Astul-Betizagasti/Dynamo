@@ -177,6 +177,8 @@
                     Command="{Binding Path=DataContext.ShowNewPresetsDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:DynamoView}}}" />
     </Window.InputBindings>
 
+
+
     <Grid Name="mainGrid"
           FocusManager.IsFocusScope="True"
           PreviewMouseDown="Window_PreviewMouseDown"
@@ -233,17 +235,17 @@
                 <Menu IsMainMenu="True"
                       Name="menu1"
                       Style="{StaticResource MainMenu}">
-                 <!--Accessor key = false. This is to include underscore in header(only for SubMenuItem-->
+                    <!--Accessor key = false. This is to include underscore in header(only for SubMenuItem-->
                     <Menu.Resources>
                         <Style x:Key="SubMenuItemOverride"
                             BasedOn="{StaticResource MenuItemStyle}"
                             TargetType="{x:Type MenuItem}">
 
-                            <Style.Resources>                              
+                            <Style.Resources>
                                 <!--  SubmenuItem  -->
                                 <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}"
                                                           TargetType="MenuItem">
-                                    
+
                                     <Border Name="Border"
                                             Height="25" Background="Transparent">
                                         <Grid MinWidth="200">
@@ -257,7 +259,7 @@
                                                               HorizontalAlignment="Stretch"
                                                               VerticalAlignment="Center"
                                                               ContentSource="Header"
-                                                              RecognizesAccessKey="False" />                                         
+                                                              RecognizesAccessKey="False" />
                                         </Grid>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -280,8 +282,8 @@
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
-                            </Style.Resources>                         
-                            <Style.Triggers>                                                              
+                            </Style.Resources>
+                            <Style.Triggers>
                                 <Trigger Property="Role"
                                     Value="SubmenuItem">
                                     <Setter Property="Template"
@@ -305,6 +307,110 @@
                                   Visibility="{Binding HideReportOptions, Converter={StaticResource InverseBoolToVisibilityCollapsedConverter}}"
                                   Focusable="False"/>
                         <Separator />
+                        <!--TEST POPUP-->
+                        <MenuItem Header="Popup test"
+                                  Focusable="False"
+                                  Name="popupTest">
+                            <StackPanel>
+                                <ToggleButton Name="button">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <TextBlock>Click Me Here!!</TextBlock>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=button}" StaysOpen="True">
+                                    <!--<Border Background="{StaticResource PopupWhiteColor}">-->
+                                    <Border Background="LightGray">
+                                        <Grid Width="400"
+                                            Height="450">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="50"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid Grid.Row="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!--Close button-->
+                                                <Grid Grid.Row="0"
+                                                      HorizontalAlignment="Right"
+                                                      Margin="20,20,20,20">
+                                                    <Button Name="CloseButton"
+                                                            Height="15"  
+                                                            Width="15"
+                                                            HorizontalContentAlignment="Center"  
+                                                            Style="{StaticResource PopupCloseButtonStyle}">
+                                                    </Button>
+                                                </Grid>
+                                                <!--Symbol-->
+                                                <Grid Grid.Row="1">
+                                                    <!--TODO: PEDIR LOGO CORRECTO-->
+                                                    <Image Source="/DynamoCoreWpf;component/UI/Images/run_hover.png"
+                                                           Width="40"
+                                                           Height="40"/>
+                                                </Grid>
+                                                <!--Title-->
+                                                <Grid Grid.Row="2">
+                                                    <Label x:Name="TitleLabel"
+                                                           Grid.Column="0"
+                                                           Content="Finished"
+                                                           HorizontalContentAlignment="Center"  
+                                                           Style="{StaticResource PoupTitleLabelStyle}"/>
+                                                </Grid>
+                                                <!--Learn more-->
+                                                <Grid Grid.Row="3">
+                                                    <Label x:Name="LearnMoreLabel"
+                                                           Grid.Column="0"
+                                                           Content="Learn more about packages in the online help"
+                                                           HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                                <!--Rating-->
+                                                <Grid Grid.Row="4">
+                                                    <Border Background="Gray"
+                                                            Width="200">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid Grid.Row="0">
+                                                                <Label x:Name="RatingText"
+                                                                       Grid.Column="0"
+                                                                       Content="Rate this guide"
+                                                                       HorizontalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <Grid Grid.Row="1">
+                                                                <Label x:Name="RatingStars"
+                                                                       Grid.Column="0"
+                                                                       Content="X X X X X"
+                                                                       HorizontalContentAlignment="Center"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                                <!--Next Guide-->
+                                                <Grid Grid.Row="6">
+                                                    <Label x:Name="NextGuideLabel"
+                                                           Grid.Column="0"
+                                                           Content="Next Guide: Package Dependencies"
+                                                           HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
+                        </MenuItem>
+
                         <MenuItem Header="{x:Static p:Resources.DynamoViewDynamoMenuPreferences}"
                                   Focusable="False"
                                   Click="OnPreferencesWindowClick"
@@ -441,7 +547,7 @@
                                   Command="{Binding Path=NodeFromSelectionCommand}"
                                   Name="nodeFromSelection"
                                   InputGestureText="Ctrl + D" />
-                       
+
                         <MenuItem Focusable="False"
                                   Header="{x:Static p:Resources.DynamoViewEditMenuSelectAll}"
                                   Command="{Binding SelectAllCommand}"
@@ -594,7 +700,7 @@
                                       Command="{Binding Path=BackgroundPreviewViewModel.ToggleCanNavigateBackgroundCommand}" />
                         </MenuItem>
                     </MenuItem>
-                    
+
                     <MenuItem Header="{x:Static p:Resources.DynamoViewPackageMenu}"
                               Name="PackageManagerMenu"
                               Focusable="False"
@@ -659,7 +765,7 @@
                                    Height="14"/>
                         </MenuItem.Icon>
                     </MenuItem>
-					
+
                     <MenuItem Header="{x:Static p:Resources.DynamoViewDebugMenu}"
                               Focusable="False"
                               Visibility="{Binding IsDebugBuild, Converter={StaticResource BooleanToVisibilityCollapsedConverter}}">
@@ -726,12 +832,12 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Grid Name="loginGrid" 
                   Grid.Row="0" 
                   Grid.Column="1">
             </Grid>
-            
+
             <Border Name="shortcutBarBorder"
                 Grid.Row="0"
                 Grid.Column="0"
@@ -762,7 +868,7 @@
             </Canvas>
 
             <!-- The BackgroundPreview is now created in the DynamoView_Loaded method.-->
-            
+
         </Grid>
 
         <!--
@@ -1440,7 +1546,7 @@
                 <RotateTransform Angle="-90" />
             </StackPanel.RenderTransform>
         </StackPanel>
-        
+
         <!--Collapsed Extension Sidebar-->
         <StackPanel Grid.Row="2"
                     Grid.Column="2"
@@ -1604,7 +1710,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    
+
                     <!--Template for tab header in the extensions side bar-->
                     <DataTemplate x:Key="TabHeader" DataType="TabItem">
                         <DockPanel HorizontalAlignment="Stretch" Name ="TabPanel" MinWidth="{Binding Source={x:Static configuration:Configurations.ExtensionsSideBarTabMinWidth}}">
@@ -1651,7 +1757,7 @@
                             </Button>
                         </DockPanel>
                     </DataTemplate>
-                    
+
                     <!--Styling for the tab in the extensions side bar-->
                     <Style TargetType="{x:Type TabItem}">
                         <Setter Property="MinWidth" Value="{Binding Source={x:Static configuration:Configurations.ExtensionsSideBarTabMinWidth}}" />
@@ -1765,7 +1871,7 @@
                       Margin="0"
                       Background="Transparent"
                       Cursor="/DynamoCoreWpf;component/UI/Images/resize_horizontal.cur" />
-        
+
         <!--Split Between Extension and Canvas-->
         <GridSplitter ResizeDirection="Auto"
                       Grid.Column="3"

@@ -3469,5 +3469,54 @@
         </Setter>
     </Style>
 
+    <SolidColorBrush x:Key="PopupWhiteColor" 
+                             Color="#FFFFFF" />
+
+    <!--Style for the close popup button in a Tooltip part of the Dynamo Guided Tours-->
+    <Style x:Key="PopupCloseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="CloseButtonBorder"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                BorderBrush="Transparent">
+                        <Canvas Margin="0,0,0,0">
+                            <Line x:Name="line1" X1="0" Y1="0" X2="13" Y2="13" Stroke="#808080" StrokeThickness="1"></Line>
+                            <Line x:Name="line2" X1="0" Y1="13" X2="13" Y2="0" Stroke="#808080" StrokeThickness="1"></Line>
+                        </Canvas>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Stroke" 
+                                        TargetName="line1" 
+                                        Value="Red"/>
+                            <Setter Property="Stroke" 
+                                        TargetName="line2" 
+                                        Value="Red"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                            <Setter Property="Stroke" 
+                                        TargetName="line1" 
+                                        Value="{StaticResource PreferencesWindowButtonColor}"/>
+                            <Setter Property="Stroke" 
+                                        TargetName="line2" 
+                                        Value="{StaticResource PreferencesWindowButtonColor}"/>
+                            <Setter Property="Cursor" 
+                                        Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PoupTitleLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Artifakt Element"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="MinHeight" Value="50"/>
+        <Setter Property="Foreground" Value="#535353" />
+    </Style>
 
 </ResourceDictionary>
